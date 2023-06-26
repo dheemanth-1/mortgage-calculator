@@ -2,12 +2,12 @@ import { Stack } from "@mui/material";
 import SliderComponent from "../common/SliderComponent";
 import { IData } from "../App";
 
-interface SliderSelectProps {
+export interface PropsfromApp {
     data:IData
     setData:React.Dispatch<React.SetStateAction<IData>>
 }
 
-const SliderSelect = (props:SliderSelectProps) => {
+const SliderSelect = (props:PropsfromApp) => {
     console.log(props.data)
     const bankLimit = 10_000
   return (
@@ -22,7 +22,10 @@ const SliderSelect = (props:SliderSelectProps) => {
         unit='$'
         amount={props.data.homeValue}
         onChange={(event) =>
-          props.setData({...props.data, homeValue: +((event.target as HTMLInputElement).value)})
+          props.setData({...props.data, 
+                         downPayment: +((event.target as HTMLInputElement).value) * 0.2,
+                         loanAmount: +((event.target as HTMLInputElement).value) * 0.8,
+                         homeValue: +((event.target as HTMLInputElement).value)})
         }
       />
       <SliderComponent
@@ -36,7 +39,7 @@ const SliderSelect = (props:SliderSelectProps) => {
         amount={props.data.downPayment}
         onChange={(event) =>
             props.setData({...props.data, 
-                            loanAmount:(props.data.homeValue-+((event.target as HTMLInputElement).value)), 
+                            loanAmount:(props.data.homeValue - +((event.target as HTMLInputElement).value)), 
                             downPayment: +((event.target as HTMLInputElement).value)})
         }
       />
@@ -51,7 +54,7 @@ const SliderSelect = (props:SliderSelectProps) => {
         amount={props.data.loanAmount}
         onChange={(event) =>
             props.setData({...props.data,
-                           downPayment: (props.data.homeValue -  +((event.target as HTMLInputElement).value)),
+                           downPayment: (props.data.homeValue - +((event.target as HTMLInputElement).value)),
                            loanAmount: +((event.target as HTMLInputElement).value)})
         }
       />
